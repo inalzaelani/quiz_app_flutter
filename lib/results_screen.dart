@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/question_summary/questions_summary.dart';
+import 'package:quiz_app/start_screen.dart';
 
 import 'data/question.dart';
-
-
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen({
     super.key,
-    required this.chosenAnswers,
+    required this.chosenAnswers, required this.restartScreen,
   });
 
   final List<String> chosenAnswers;
+
+  final void Function() restartScreen;
 
   List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
@@ -37,6 +38,7 @@ class ResultsScreen extends StatelessWidget {
     final numCorrectQuestions = summaryData.where((data) {
       return data['user_answer'] == data['correct_answer'];
     }).length;
+    var startScreen = StartScreen;
 
     return SizedBox(
       width: double.infinity,
@@ -56,7 +58,7 @@ class ResultsScreen extends StatelessWidget {
               height: 30,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: restartScreen,
               child: const Text('Restart Quiz!'),
             )
           ],
